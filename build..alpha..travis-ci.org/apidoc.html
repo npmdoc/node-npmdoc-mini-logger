@@ -1,0 +1,300 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/node-modules/mini-logger#readme"
+
+    >mini-logger (v1.1.2)</a>
+</h1>
+<h4>A really simple logger for web server or others</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.mini-logger">module mini-logger</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.mini-logger.mini-logger">
+            function <span class="apidocSignatureSpan"></span>mini-logger
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.mini-logger.super_">
+            function <span class="apidocSignatureSpan">mini-logger.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">mini-logger.</span>super_.prototype</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.mini-logger.super_">module mini-logger.super_</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.mini-logger.super_.super_">
+            function <span class="apidocSignatureSpan">mini-logger.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.mini-logger.super_.prototype">module mini-logger.super_.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.mini-logger.super_.prototype.defaultErrorHandler">
+            function <span class="apidocSignatureSpan">mini-logger.super_.prototype.</span>defaultErrorHandler
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.mini-logger.super_.prototype.ready">
+            function <span class="apidocSignatureSpan">mini-logger.super_.prototype.</span>ready
+            <span class="apidocSignatureSpan">(flagOrFunction)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.mini-logger" id="apidoc.module.mini-logger">module mini-logger</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.mini-logger.mini-logger" id="apidoc.element.mini-logger.mini-logger">
+        function <span class="apidocSignatureSpan"></span>mini-logger
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Logger(options) {
+  if (!(this instanceof Logger)) return new Logger(options);
+
+  assert(options, &#x27;options required&#x27;);
+  Base.call(this);
+
+  this._options = {};
+  copy(options).and(defaultOptions).to(this._options);
+  options = this._options;
+
+  if (options.file) {
+    assert(options.dir, &#x27;options.dir required&#x27;);
+  }
+
+  if (!Array.isArray(options.categories)) options.categories = [ options.categories ];
+  options.categories.push(&#x27;error&#x27;);
+  options.categories = uniq(options.categories);
+
+  options.duration = typeof options.duration === &#x27;string&#x27;
+    ? ms(options.duration)
+    : options.duration;
+
+  options.flushInterval = typeof options.flushInterval === &#x27;string&#x27;
+    ? ms(options.flushInterval)
+    : options.flushInterval;
+
+  options.encoding = (options.encoding || &#x27;utf-8&#x27;).toLowerCase();
+  if (options.encoding === &#x27;utf8&#x27;) options.encoding = &#x27;utf-8&#x27;;
+
+  this._init();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.mini-logger.super_" id="apidoc.element.mini-logger.super_">
+        function <span class="apidocSignatureSpan">mini-logger.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Base() {
+  // defer bind default error handler
+  defer(function () {
+    if (!this.listeners(&#x27;error&#x27;).length) {
+<span class="apidocCodeCommentSpan">      /**
+       * default error handler
+       */
+</span>      this.on(&#x27;error&#x27;, this.defaultErrorHandler.bind(this));
+    }
+  }.bind(this));
+  EventEmitter.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.mini-logger.super_" id="apidoc.module.mini-logger.super_">module mini-logger.super_</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.mini-logger.super_.super_" id="apidoc.element.mini-logger.super_.super_">
+        function <span class="apidocSignatureSpan">mini-logger.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.mini-logger.super_.prototype" id="apidoc.module.mini-logger.super_.prototype">module mini-logger.super_.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.mini-logger.super_.prototype.defaultErrorHandler" id="apidoc.element.mini-logger.super_.prototype.defaultErrorHandler">
+        function <span class="apidocSignatureSpan">mini-logger.super_.prototype.</span>defaultErrorHandler
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">defaultErrorHandler = function (err) {
+  console.error(&#x27;\n[%s][pid: %s][%s][%s] %s: %s \nError Stack:\n  %s&#x27;,
+    Date(), process.pid, this.constructor.name, __filename, err.name,
+    err.message, err.stack);
+
+  // try to show addition property on the error object
+  // e.g.: `err.data = {url: &#x27;/foo&#x27;};`
+  var additions = [];
+  for (var key in err) {
+    if (key === &#x27;name&#x27; || key === &#x27;message&#x27;) {
+      continue;
+    }
+
+    additions.push(util.format(&#x27;  %s: %j&#x27;, key, err[key]));
+  }
+  if (additions.length) {
+    console.error(&#x27;Error Additions:\n%s&#x27;, additions.join(&#x27;\n&#x27;));
+  }
+  console.error();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.mini-logger.super_.prototype.ready" id="apidoc.element.mini-logger.super_.prototype.ready">
+        function <span class="apidocSignatureSpan">mini-logger.super_.prototype.</span>ready
+        <span class="apidocSignatureSpan">(flagOrFunction)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function ready(flagOrFunction) {
+  this._ready = !!this._ready;
+  this._readyCallbacks = this._readyCallbacks || [];
+
+  if (arguments.length === 0) {
+    // return a promise
+    // support `this.ready().then(onready);` and `yield this.ready()`;
+    return new Promise(function (resolve) {
+      if (this._ready) {
+        return resolve();
+      }
+      this._readyCallbacks.push(resolve);
+    }.bind(this));
+  } else if (typeof flagOrFunction === &#x27;function&#x27;) {
+    this._readyCallbacks.push(flagOrFunction);
+  } else {
+    this._ready = !!flagOrFunction;
+  }
+
+  if (this._ready) {
+    this._readyCallbacks.splice(0, Infinity).forEach(function(callback) {
+      process.nextTick(callback);
+    });
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
